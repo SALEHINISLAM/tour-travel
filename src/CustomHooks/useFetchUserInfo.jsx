@@ -12,7 +12,9 @@ const useFetchUserInfo = () => {
       if(!user?.email){
         return null
       }
-      const result = await axiosPublic.get(`/user?email=${user?.email}`);
+      const result = await axiosPublic.get(`/api/v1/latest/${user?.email}`);
+      // const response = await axiosPublic.get(`/api/v1/tour/latest/${loggedInUser.email}`);
+
       return result.data;
     },
   });

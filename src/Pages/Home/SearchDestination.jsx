@@ -8,6 +8,53 @@ import { AuthContext } from '../../Providers/AuthProviders';
 import { Navigate } from 'react-router-dom';
 import useAxiosPublic from '../../CustomHooks/useAxiosPublic';
 
+const transformTourData = (userData, aiResponse) => {
+    // Transform the daily itinerary
+    const tourPlan = aiResponse["Tour Plan"].map(day => ({
+        day: day.day,
+        tasks: day.tasks.map(task => ({
+            activity: task.activity,
+            estimated_time: task.estimated_time,
+            latitude: task.latitude,
+            longitude: task.longitude,
+            place: task.place,
+            status: task.status
+        }))
+    }));
+
+    // Transform budget estimation
+    const estimationBudget = {
+        accommodation: aiResponse["Estimation Budget"].accommodation,
+        food: aiResponse["Estimation Budget"].food,
+        sightseeing: aiResponse["Estimation Budget"].sightseeing,
+        transportation: aiResponse["Estimation Budget"].transportation
+    };
+
+    // Transform hotel information
+    const hotel = {
+        name: aiResponse["Hotel Name"].name,
+        latitude: aiResponse["Hotel Name"].latitude,
+        longitude: aiResponse["Hotel Name"].longitude
+    };
+
+    // Transform user input
+    const userInput = {
+        from: userData.from,
+        to: userData.to,
+        startDate: userData.startDate,
+        endDate: userData.endDate
+    };
+
+    // Return the complete transformed data
+    return {
+        email: userData.email,
+        userInput,
+        hotel,
+        estimationBudget,
+        tourPlan
+    };
+};
+
 export default function SearchDestination() {
     const [budget, setBudget] = useState('');
     const [aiResponse, setAiResponse] = useState(null);
@@ -52,27 +99,28 @@ export default function SearchDestination() {
             Swal.fire("Error", "Something went wrong", "error")
         }
     };
-const handlePostPlanToMongoDB=async()=>{
-    // write code to insert in mongodb
-    const totalData={
-        email:user?.email,
-        userInput,
-        aiResponse   ///api/v1/tour 
-    }
-    if (!user) {
-        Swal.fire("Error","Please Login","error")
-        return <Navigate to={"/login"}/>
-    }
-    console.log(totalData)
-    try {
-        const result = await axiosPublic.post("/api/v1/tour", {...totalData});
-        console.log(result.data)
-      } catch (error) {
-        console.error('Error making the request:', error);
-        Swal.fire("Error", error.response ? error.response.data.message : "Network Error", "error");
-      }
-    
-}
+    const handlePostPlanToMongoDB = async () => {
+        if (!user) {
+            Swal.fire("Error", "Please Login", "error");
+            return <Navigate to={"/login"}/>;
+        }
+
+        try {
+            // Use the transformation function here
+            const transformedData = transformTourData({
+                ...userInput,
+                email: user?.email
+            }, aiResponse);
+            
+            const result = await axiosPublic.post("/api/v1/tour", transformedData);
+            if (result.data) {
+                Swal.fire("Success", "Tour plan saved successfully!", "success");
+            }
+        } catch (error) {
+            console.error('Error making the request:', error);
+            Swal.fire("Error", error.response ? error.response.data.message : "Network Error", "error");
+        }
+    };
     return (
         <div className='container mx-auto flex flex-col justify-center items-center my-8'>
             {/* <h1 className='text-4xl font-semibold'>Create Your Tour Plan</h1> */}
