@@ -60,8 +60,11 @@ export default function WebNavbar() {
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                                 <li><a>Hi {user?.displayName}</a></li>
-                                <li><a>Plan Trip</a></li>
-                                <li><a>My Trip</a></li>
+                                <li><a href='/planTrip'>Plan Trip</a></li>
+                                <li><a href='/myTrip'>My Trip</a></li>
+                                <li><a href='/tripAlbum'>Tour Album</a></li>
+                                <li><a href='/tripBlog'>Tour Blog</a></li>
+                                <li><a href='/tripVlog'>Tour Vlog <span className='badge'>new</span></a></li>
                                 <li><a className='text-error' onClick={() => handleLogOut()}>Logout</a></li>
                             </ul>
                         </div>
