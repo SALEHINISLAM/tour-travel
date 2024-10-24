@@ -1,8 +1,19 @@
 import React from 'react'
 import Heading from '../../Components/Heading'
 import ManageCard from '../../Components/ManageCard'
-//title,img,subTitle, link
+import { useForm } from 'react-hook-form';
+
 export default function TripAlbum() {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
+    const handleOnSubmit = async (data) => {
+        console.log(data);
+    
+    }
     const tripAlbumOption = [
         {
             "title": "Current Trip Photo",
@@ -17,9 +28,19 @@ export default function TripAlbum() {
             "link": "/pastTripPhoto"
         }
     ]
+
     return (
         <div className='container mx-auto pb-10'>
             <Heading title={"Trip Album"} subTitle={"Upload and See Your Trip Photo"} />
+
+            <form className="flex flex-row justify-center items-center mb-4" onSubmit={handleSubmit(handleOnSubmit)}>
+            <input type="text" placeholder="Search Your Memories" className="input input-bordered w-full max-w-xs rounded-r-none" 
+            {...register("imgTag")}
+            required
+            />
+            <button type='submit' className='btn btn-outline rounded-l-none'>Search</button>
+            </form>
+
             <div className="flex flex-col gap-5 md:flex-row justify-center">
                 {
                     tripAlbumOption.map((item, index) => <ManageCard key={index} img={item.img} title={item.title} subTitle={item.subTitle} link={item.link} />)
