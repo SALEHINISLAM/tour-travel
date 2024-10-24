@@ -4,8 +4,8 @@ import { AuthContext } from '../Providers/AuthProviders'
 
 export const navOptions = <>
     <li><Link to={"/"}>Home</Link></li>
-    <li><Link to={"/contact"}>Contact</Link></li>
     <li><Link to={"/planTrip"}>Plan Trip</Link></li>
+    <li><Link to={"/contact"}>Contact</Link></li>
 </>
 export default function WebNavbar() {
     const { user, logOut } = useContext(AuthContext)
@@ -53,7 +53,7 @@ export default function WebNavbar() {
                                 <div className="w-10 rounded-full">
                                     <img
                                         alt="Tailwind CSS Navbar component"
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                        src="https://i.ibb.co.com/nnJdCVd/1077114.png" />
                                 </div>
                             </div>
                             <ul

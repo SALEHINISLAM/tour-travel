@@ -6,6 +6,7 @@ import { tripPlanningChatSession } from './TripPlanner'; // Import the trip plan
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Providers/AuthProviders';
 import { Navigate } from 'react-router-dom';
+import useAxiosPublic from '../../CustomHooks/useAxiosPublic';
 
 export default function SearchDestination() {
     const [budget, setBudget] = useState('');
@@ -14,6 +15,7 @@ export default function SearchDestination() {
     const [userInput, setUserInput]=useState(null)
     const [loading, setLoading] = useState(false)
     const { user } = useContext(AuthContext)
+    const axiosPublic=useAxiosPublic()
 
     const handleFormOnSubmit = async (data) => {
         setLoading(true)
@@ -55,13 +57,21 @@ const handlePostPlanToMongoDB=async()=>{
     const totalData={
         email:user?.email,
         userInput,
-        aiResponse
+        aiResponse   ///api/v1/tour 
     }
     if (!user) {
         Swal.fire("Error","Please Login","error")
         return <Navigate to={"/login"}/>
     }
     console.log(totalData)
+    try {
+        const result = await axiosPublic.post("/api/v1/tour", {...totalData});
+        console.log(result.data)
+      } catch (error) {
+        console.error('Error making the request:', error);
+        Swal.fire("Error", error.response ? error.response.data.message : "Network Error", "error");
+      }
+    
 }
     return (
         <div className='container mx-auto flex flex-col justify-center items-center my-8'>
