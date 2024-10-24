@@ -5,8 +5,9 @@ import { BiMoney } from 'react-icons/bi';
 import { tripPlanningChatSession } from './TripPlanner'; // Import the trip planning session
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Providers/AuthProviders';
-import { Navigate } from 'react-router-dom';
+import { json, Navigate } from 'react-router-dom';
 import useAxiosPublic from '../../CustomHooks/useAxiosPublic';
+import RouteMap from '../../Map/RouteMap';
 
 const transformTourData = (userData, aiResponse) => {
     // Transform the daily itinerary
@@ -54,15 +55,129 @@ const transformTourData = (userData, aiResponse) => {
         tourPlan
     };
 };
+export const randomData={"Tour Plan": [
+    {
+      "day": "Day 1 (October 25, 2024)",
+      "tasks": [
+        {
+          "activity": "Travel to Comilla",
+          "place": "Dhaka to Comilla (By Car/Bus)",
+          "latitude": "23.4607",
+          "longitude": "91.1809",
+          "estimated_time": "2-3 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Check in to Hotel",
+          "place": "The Palace Luxury Resort",
+          "latitude": "23.4738",
+          "longitude": "91.1507",
+          "estimated_time": "30 minutes",
+          "status": "pending"
+        },
+        {
+          "activity": "Explore Comilla City",
+          "place": "Comilla City Center",
+          "latitude": "23.4614",
+          "longitude": "91.1797",
+          "estimated_time": "2-3 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Dinner",
+          "place": "Local Restaurant",
+          "latitude": "23.46",
+          "longitude": "91.18",
+          "estimated_time": "1 hour",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "day": "Day 2 (October 26, 2024)",
+      "tasks": [
+        {
+          "activity": "Visit Mainamati War Cemetery",
+          "place": "Mainamati",
+          "latitude": "23.4967",
+          "longitude": "91.1074",
+          "estimated_time": "3-4 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Lunch",
+          "place": "Local Restaurant near Mainamati",
+          "latitude": "23.49",
+          "longitude": "91.11",
+          "estimated_time": "1 hour",
+          "status": "pending"
+        },
+        {
+          "activity": "Visit Shalban Vihara",
+          "place": "Shalban Vihara",
+          "latitude": "23.4651",
+          "longitude": "91.1223",
+          "estimated_time": "2-3 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Dinner",
+          "place": "Hotel/Local Restaurant",
+          "latitude": "23.47",
+          "longitude": "91.15",
+          "estimated_time": "1 hour",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "day": "Day 3-8 (October 27 - November 1, 2024)",
+      "tasks": [
+        {
+          "activity": "Relax at the resort/Explore Comilla further based on your interests.",
+          "place": "Comilla",
+          "latitude": "23.4607",
+          "longitude": "91.1809",
+          "estimated_time": "Flexible",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "day": "Day 9 (November 2, 2024)",
+      "tasks": [
+        {
+          "activity": "Return to Dhaka",
+          "place": "Comilla to Dhaka (By Car/Bus)",
+          "latitude": "23.4607",
+          "longitude": "91.1809",
+          "estimated_time": "2-3 hours",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "Estimation Budget": {
+    "accommodation": "8,000 BDT per night (Luxury Hotel - 72,000 BDT total)",
+    "transportation": "5,000 BDT (round trip)",
+    "food": "10,000 BDT",
+    "sightseeing": "5,000 BDT"
+  },
+  "Hotel Name": {
+    "name": "The Palace Luxury Resort",
+    "latitude": "23.4738",
+    "longitude": "91.1507"
+  }
+}
 
 export default function SearchDestination() {
     const [budget, setBudget] = useState('');
     const [aiResponse, setAiResponse] = useState(null);
     const { register, handleSubmit } = useForm();
-    const [userInput, setUserInput]=useState(null)
+    const [userInput, setUserInput] = useState(null)
     const [loading, setLoading] = useState(false)
     const { user } = useContext(AuthContext)
-    const axiosPublic=useAxiosPublic()
+    const axiosPublic = useAxiosPublic()
 
     const handleFormOnSubmit = async (data) => {
         setLoading(true)
@@ -102,7 +217,7 @@ export default function SearchDestination() {
     const handlePostPlanToMongoDB = async () => {
         if (!user) {
             Swal.fire("Error", "Please Login", "error");
-            return <Navigate to={"/login"}/>;
+            return <Navigate to={"/login"} />;
         }
 
         try {
@@ -111,7 +226,7 @@ export default function SearchDestination() {
                 ...userInput,
                 email: user?.email
             }, aiResponse);
-            
+
             const result = await axiosPublic.post("/api/v1/tour", transformedData);
             if (result.data) {
                 Swal.fire("Success", "Tour plan saved successfully!", "success");
@@ -121,6 +236,7 @@ export default function SearchDestination() {
             Swal.fire("Error", error.response ? error.response.data.message : "Network Error", "error");
         }
     };
+    console.log(parseFloat(aiResponse["Tour Plan"][0]["tasks"][0]["latitude"]),parseFloat(aiResponse["Hotel Name"]["latitude"]))
     return (
         <div className='container mx-auto flex flex-col justify-center items-center my-8'>
             {/* <h1 className='text-4xl font-semibold'>Create Your Tour Plan</h1> */}
@@ -235,7 +351,10 @@ export default function SearchDestination() {
                             <li><strong>Sightseeing:</strong> {aiResponse["Estimation Budget"].sightseeing}</li>
                         </ul>
                     </div>
-
+                    <div className='flex flex-col items-center justify-center'>
+                        <h1 className='text-2xl font-medium'>Locate your route</h1>
+                        
+                    </div>
                     <div>
                         <h3 className='text-xl font-medium'>Hotel Name</h3>
                         <p>
@@ -245,7 +364,7 @@ export default function SearchDestination() {
                 </div>
             )}
 
-            <button className={`${aiResponse === null ? "hidden" : "btn btn-outline my-4"}`} onClick={()=>handlePostPlanToMongoDB()}>Start Tour</button>
+            <button className={`${aiResponse === null ? "hidden" : "btn btn-outline my-4"}`} onClick={() => handlePostPlanToMongoDB()}>Start Tour</button>
         </div>
     );
 }
