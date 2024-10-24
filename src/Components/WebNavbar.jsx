@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+export const navOptions=<>
+<li><Link to={"/"}>Home</Link></li>
+<li><Link to={"/contact"}>Contact</Link></li>
+</>
 export default function WebNavbar() {
-    const navOptions=<>
-    <li><Link to={"/"}>Home</Link></li>
-    </>
     return (
         <div className="container mx-auto">
             <div className="navbar bg-base-100">

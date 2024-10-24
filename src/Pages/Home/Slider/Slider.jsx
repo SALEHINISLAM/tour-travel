@@ -5,7 +5,7 @@ import './styles.css';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-cards';
-import { EffectCards } from 'swiper/modules';
+import { Autoplay, EffectCards } from 'swiper/modules';
 
 export default function Slider() {
     return (
@@ -13,10 +13,10 @@ export default function Slider() {
             <Swiper
                 effect={'cards'}
                 grabCursor={true}
-                modules={[EffectCards]}
+                modules={[EffectCards,Autoplay]}
                 className="mySwiper"
                 loop={true}
-                autoplay={{ delay: 500, disableOnInteraction: false }}
+                autoplay={{ delay: 5000, disableOnInteraction: false }}
             >
                 <SwiperSlide><img className='w-full h-full' src="https://i.ibb.co.com/vqmQySb/download-1.jpg" alt="" /></SwiperSlide>
                 <SwiperSlide><img className='w-full h-full' src="https://i.ibb.co.com/CMW88LJ/kaptai-lake-2493134-640.jpg" alt="" /></SwiperSlide>

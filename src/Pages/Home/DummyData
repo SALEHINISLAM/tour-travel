@@ -1,0 +1,218 @@
+{"Tour Plan": [
+    {
+      "day": "Day 1 (October 25, 2024)",
+      "tasks": [
+        {
+          "activity": "Travel to Comilla",
+          "place": "Dhaka to Comilla (By Car/Bus)",
+          "latitude": "23.4607",
+          "longitude": "91.1809",
+          "estimated_time": "2-3 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Check in to Hotel",
+          "place": "The Palace Luxury Resort",
+          "latitude": "23.4738",
+          "longitude": "91.1507",
+          "estimated_time": "30 minutes",
+          "status": "pending"
+        },
+        {
+          "activity": "Explore Comilla City",
+          "place": "Comilla City Center",
+          "latitude": "23.4614",
+          "longitude": "91.1797",
+          "estimated_time": "2-3 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Dinner",
+          "place": "Local Restaurant",
+          "latitude": "23.46",
+          "longitude": "91.18",
+          "estimated_time": "1 hour",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "day": "Day 2 (October 26, 2024)",
+      "tasks": [
+        {
+          "activity": "Visit Mainamati War Cemetery",
+          "place": "Mainamati",
+          "latitude": "23.4967",
+          "longitude": "91.1074",
+          "estimated_time": "3-4 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Lunch",
+          "place": "Local Restaurant near Mainamati",
+          "latitude": "23.49",
+          "longitude": "91.11",
+          "estimated_time": "1 hour",
+          "status": "pending"
+        },
+        {
+          "activity": "Visit Shalban Vihara",
+          "place": "Shalban Vihara",
+          "latitude": "23.4651",
+          "longitude": "91.1223",
+          "estimated_time": "2-3 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Dinner",
+          "place": "Hotel/Local Restaurant",
+          "latitude": "23.47",
+          "longitude": "91.15",
+          "estimated_time": "1 hour",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "day": "Day 3-8 (October 27 - November 1, 2024)",
+      "tasks": [
+        {
+          "activity": "Relax at the resort/Explore Comilla further based on your interests.",
+          "place": "Comilla",
+          "latitude": "23.4607",
+          "longitude": "91.1809",
+          "estimated_time": "Flexible",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "day": "Day 9 (November 2, 2024)",
+      "tasks": [
+        {
+          "activity": "Return to Dhaka",
+          "place": "Comilla to Dhaka (By Car/Bus)",
+          "latitude": "23.4607",
+          "longitude": "91.1809",
+          "estimated_time": "2-3 hours",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "Estimation Budget": {
+    "accommodation": "8,000 BDT per night (Luxury Hotel - 72,000 BDT total)",
+    "transportation": "5,000 BDT (round trip)",
+    "food": "10,000 BDT",
+    "sightseeing": "5,000 BDT"
+  },
+  "Hotel Name": {
+    "name": "The Palace Luxury Resort",
+    "latitude": "23.4738",
+    "longitude": "91.1507"
+  }
+}
+
+
+{
+  "Tour Plan": [
+    {
+      "day": "Day 1 (October 25, 2024)",
+      "tasks": [
+        {
+          "activity": "Travel to Magura",
+          "place": "Dhaka to Magura (By Car/Bus)",
+          "latitude": "23.4873",
+          "longitude": "89.4206",
+          "estimated_time": "4-5 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Check in to Hotel",
+          "place": "Hotel Magura Inn",
+          "latitude": "23.4857",
+          "longitude": "89.4196",
+          "estimated_time": "30 minutes",
+          "status": "pending"
+        },
+        {
+          "activity": "Explore Magura City",
+          "place": "Magura City Center",
+          "latitude": "23.4843",
+          "longitude": "89.4175",
+          "estimated_time": "2-3 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Dinner",
+          "place": "Local Restaurant",
+          "latitude": "23.48",
+          "longitude": "89.42",
+          "estimated_time": "1 hour",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "day": "Day 2 (October 26, 2024)",
+      "tasks": [
+        {
+          "activity": "Visit the Tomb of Khan Jahan Ali",
+          "place": "Bagerhat (approx. 1.5-hour drive from Magura)",
+          "latitude": "22.6534",
+          "longitude": "89.7856",
+          "estimated_time": "4-5 hours (including travel time)",
+          "status": "pending"
+        },
+        {
+          "activity": "Lunch",
+          "place": "Local Restaurant in Bagerhat",
+          "latitude": "22.65",
+          "longitude": "89.79",
+          "estimated_time": "1 hour",
+          "status": "pending"
+        },
+        {
+          "activity": "Return to Magura",
+          "place": "Bagerhat to Magura",
+          "latitude": "23.4873",
+          "longitude": "89.4206",
+          "estimated_time": "1.5-2 hours",
+          "status": "pending"
+        },
+        {
+          "activity": "Dinner",
+          "place": "Hotel/Local Restaurant",
+          "latitude": "23.48",
+          "longitude": "89.42",
+          "estimated_time": "1 hour",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "day": "Day 3 (October 27, 2024)",
+      "tasks": [
+        {
+          "activity": "Return to Dhaka",
+          "place": "Magura to Dhaka (By Car/Bus)",
+          "latitude": "23.4873",
+          "longitude": "89.4206",
+          "estimated_time": "4-5 hours",
+          "status": "pending"
+        }
+      ]
+    }
+  ],
+  "Estimation Budget": {
+    "accommodation": "6,000 BDT per night (Luxury Hotel, 12,000 BDT total)",
+    "transportation": "6,000 BDT (round trip)",
+    "food": "6,000 BDT",
+    "sightseeing": "4,000 BDT"
+  },
+  "Hotel Name": {
+    "name": "Hotel Magura Inn",
+    "latitude": "23.4857",
+    "longitude": "89.4196"
+  }
+}
