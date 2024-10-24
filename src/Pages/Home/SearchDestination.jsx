@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdDateRange, MdPlace } from 'react-icons/md';
 import { BiMoney } from 'react-icons/bi';
 import { tripPlanningChatSession } from './TripPlanner'; // Import the trip planning session
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../Providers/AuthProviders';
+import { Navigate } from 'react-router-dom';
 
 export default function SearchDestination() {
     const [budget, setBudget] = useState('');
     const [aiResponse, setAiResponse] = useState(null);
     const { register, handleSubmit } = useForm();
-    const [loading, setLoading]=useState(false)
+    const [userInput, setUserInput]=useState(null)
+    const [loading, setLoading] = useState(false)
+    const { user } = useContext(AuthContext)
 
     const handleFormOnSubmit = async (data) => {
         setLoading(true)
+        setUserInput(data)
         const prompt = `
       I want to generate a trip plan from ${data.from} to ${data.to} for the dates ${data.startDate}, to ${data.endDate}. I am looking for a ${budget} hotel. Please provide a full response in JSON format. The JSON should include the following objects:
       
@@ -38,18 +43,30 @@ export default function SearchDestination() {
             const aiResponseText = aiResult.response.text();
             console.log('AI Response:', aiResponseText);
             setAiResponse(JSON.parse(aiResponseText)); // Parse and set the AI response in state
-setLoading(false)
+            setLoading(false)
         } catch (error) {
             console.log(error);
             setLoading(false)
-            Swal.fire("Error", "Something went wrong","error")
+            Swal.fire("Error", "Something went wrong", "error")
         }
     };
-
+const handlePostPlanToMongoDB=async()=>{
+    // write code to insert in mongodb
+    const totalData={
+        email:user?.email,
+        userInput,
+        aiResponse
+    }
+    if (!user) {
+        Swal.fire("Error","Please Login","error")
+        return <Navigate to={"/login"}/>
+    }
+    console.log(totalData)
+}
     return (
         <div className='container mx-auto flex flex-col justify-center items-center my-8'>
-            <h1 className='text-4xl font-semibold'>Create Your Tour Plan</h1>
-            <form className='flex flex-col' onSubmit={handleSubmit(handleFormOnSubmit)}>
+            {/* <h1 className='text-4xl font-semibold'>Create Your Tour Plan</h1> */}
+            <form className='flex flex-col space-y-4' onSubmit={handleSubmit(handleFormOnSubmit)}>
                 <h1 className='flex flex-row items-center text-3xl font-medium'>
                     Enter Place Name <MdPlace />
                 </h1>
@@ -127,7 +144,7 @@ setLoading(false)
                     </div>
                 </div>
                 <div className="justify-center flex py-3">
-                    <button type='submit' disabled={loading} className='btn btn-ghost btn-outline'>{loading===true ?"Wait, Plan is Cooking...":"Generate Plan"}</button>
+                    <button type='submit' disabled={loading} className='btn btn-ghost btn-outline'>{loading === true ? "Wait, Plan is Cooking..." : "Generate Plan"}</button>
                 </div>
             </form>
 
@@ -170,7 +187,7 @@ setLoading(false)
                 </div>
             )}
 
-<button className={`${aiResponse===null ? "hidden":"btn btn-outline my-4"}`}>Start Tour</button>
+            <button className={`${aiResponse === null ? "hidden" : "btn btn-outline my-4"}`} onClick={()=>handlePostPlanToMongoDB()}>Start Tour</button>
         </div>
     );
 }

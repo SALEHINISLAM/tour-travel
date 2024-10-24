@@ -5,6 +5,7 @@ import { AuthContext } from '../Providers/AuthProviders'
 export const navOptions = <>
     <li><Link to={"/"}>Home</Link></li>
     <li><Link to={"/contact"}>Contact</Link></li>
+    <li><Link to={"/planTrip"}>Plan Trip</Link></li>
 </>
 export default function WebNavbar() {
     const { user, logOut } = useContext(AuthContext)
