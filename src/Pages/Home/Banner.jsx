@@ -1,5 +1,6 @@
 import React from 'react'
 import Slider from './Slider/Slider'
+import { Link } from 'react-router-dom'
 
 export default function Banner() {
     return (
@@ -18,7 +19,7 @@ export default function Banner() {
                     <p className="py-6">
                         Travel is the best option to refresh your mind. Why not schedule your tour now?
                     </p>
-                    <button className="btn btn-primary">Get Started</button>
+                    <Link to={"/login"} className="btn btn-primary">Get Started</Link>
                 </div>
             </div>
         </div>
