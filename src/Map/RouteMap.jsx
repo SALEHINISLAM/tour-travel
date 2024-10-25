@@ -49,7 +49,7 @@ const RouteMap = ({
     const fetchRoute = async () => {
       try {
         const response = await fetch(
-          `https://router.project-osrm.org/route/v1/bycycle/${startCoords.lng},${startCoords.lat};${endCoords.lng},${endCoords.lat}?overview=full&geometries=polyline`
+          "https://router.project-osrm.org/route/v1/bycycle/${startCoords.lng},${startCoords.lat};${endCoords.lng},${endCoords.lat}?overview=full&geometries=polyline"
         );
         const data = await response.json();
 
@@ -93,16 +93,16 @@ const RouteMap = ({
       <div className="info-card">
         <div className="route-info">
           <span className="title">Route Information</span>
-          {routeInfo && (
+          {/* {routeInfo && (
             <div className="stats">
               <span>Distance: {routeInfo.distance} km</span>
               <span>Duration: {routeInfo.duration} minutes</span>
             </div>
-          )}
+          )} */}
         </div>
-        {error && (
+        {/* {error && (
           <div className="error">{error}</div>
-        )}
+        )} */}
       </div>
       <div id="map" className="map-container" />
 
@@ -191,178 +191,3 @@ function decodePolyline(str, precision = 5) {
 }
 
 export default RouteMap;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // RouteMap.js
-// import React, { useEffect, useState } from 'react';
-// import 'leaflet/dist/leaflet.css';
-// import L from 'leaflet';
-// import icon from 'leaflet/dist/images/marker-icon.png';
-// import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
-// const RouteMap = ({ 
-//   startCoords = { lat: 23.7270, lng: 90.3929 }, // Dhaka
-//   endCoords = { lat: 24.9048, lng: 91.8600 }    // Sylhet
-// }) => {
-//   const [routeInfo, setRouteInfo] = useState(null);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     // Fix for default marker icon
-//     delete L.Icon.Default.prototype._getIconUrl;
-//     L.Icon.Default.mergeOptions({
-//       iconRetinaUrl: icon,
-//       iconUrl: icon,
-//       shadowUrl: iconShadow,
-//     });
-
-//     // Initialize map
-//     const map = L.map('map').setView([startCoords.lat, startCoords.lng], 8);
-    
-//     // Add OpenStreetMap tiles
-//     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//       maxZoom: 19,
-//       attribution: '© OpenStreetMap contributors'
-//     }).addTo(map);
-
-    // // Custom icons for start and end points
-    // const startIcon = L.icon({
-    //   iconUrl: icon,
-    //   shadowUrl: iconShadow,
-    //   iconSize: [25, 41],
-    //   iconAnchor: [12, 41],
-    //   popupAnchor: [1, -34],
-    //   shadowSize: [41, 41]
-    // });
-
-//     // Add markers with custom icons
-//     L.marker([startCoords.lat, startCoords.lng], { icon: startIcon })
-//       .addTo(map)
-//       .bindPopup("<b>Start:</b> Dhaka")
-//       .openPopup();
-
-//     L.marker([endCoords.lat, endCoords.lng], { icon: startIcon })
-//       .addTo(map)
-//       .bindPopup("<b>End:</b> Sylhet");
-
-//     // Fetch route from OSRM
-//     const fetchRoute = async () => {
-//       try {
-//         const response = await fetch(
-//           https://router.project-osrm.org/route/v1/driving/${startCoords.lng},${startCoords.lat};${endCoords.lng},${endCoords.lat}?overview=full&geometries=polyline
-//         );
-//         const data = await response.json();
-
-//         if (data.routes && data.routes.length > 0) {
-//           const route = data.routes[0];
-//           const routeCoords = decodePolyline(route.geometry);
-          
-//           // Draw the route
-//           const polyline = L.polyline(routeCoords, {
-//             color: '#0066CC',
-//             weight: 5,
-//             opacity: 0.7
-//           }).addTo(map);
-
-//           // Set route information
-//           setRouteInfo({
-//             distance: (route.distance / 1000).toFixed(1),
-//             duration: Math.round(route.duration / 60)
-//           });
-          
-//           // Fit map bounds to show entire route
-//           map.fitBounds(polyline.getBounds(), { padding: [50, 50] });
-//         }
-//       } catch (err) {
-//         setError("Failed to load route information");
-//         console.error("Error fetching route:", err);
-//       }
-//     };
-
-//     fetchRoute();
-
-//     // Cleanup function
-//     return () => {
-//       map.remove();
-//     };
-//   }, [startCoords, endCoords]);
-
-//   return (
-//     <div className="route-map-container">
-//       <div className="info-card">
-//         <div className="route-info">
-//           <span className="title">Route Information</span>
-//           {routeInfo && (
-//             <div className="stats">
-//               <span>Distance: {routeInfo.distance} km</span>
-//               <span>Duration: {routeInfo.duration} minutes</span>
-//             </div>
-//           )}
-//         </div>
-//         {error && (
-//           <div className="error">{error}</div>
-//         )}
-//       </div>
-//       <div id="map" className="map-container" />
-
-//       <style jsx>{`
-//         .route-map-container {
-//           width: 100%;
-//           max-width: 1200px;
-//           margin: 20px auto;
-//           padding: 0 20px;
-//         }
-//         .info-card {
-//           background: white;
-//           border-radius: 8px;
-//           padding: 15px;
-//           margin-bottom: 20px;
-//           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-//         }
-//         .route-info {
-//           display: flex;
-//           justify-content: space-between;
-//           align-items: center;
-//         }
-//         .title {
-//           font-size: 1.2rem;
-//           font-weight: bold;
-//         }
-//         .stats {
-//           display: flex;
-//           gap: 20px;
-//         }
-//         .error {
-//           color: red;
-//           margin-top: 10px;
-//         }
-//         .map-container {
-//           height: 500px;
-//           border-radius: 8px;
-//           overflow: hidden;
-//           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-//         }
-//       `}</style>
-//     </div>
-//   );
-// };
-
-// // Polyline decoder function remains the same
-// function decodePolyline(str, precision = 5) {
-//   // ... (keep the existing decodePolyline function)
-// }
-
-// export default RouteMap;

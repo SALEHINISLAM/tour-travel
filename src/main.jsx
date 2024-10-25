@@ -18,8 +18,10 @@ import PrivateRoute from './Route/PrivateRoute.jsx';
 import TripAlbum from './Pages/TripAlbum/TripAlbum.jsx';
 import CurrentTripPhoto from './Pages/TripAlbum/CurrentTripPhoto/CurrentTripPhoto.jsx';
 import PastTripPhoto from './Pages/TripAlbum/PastTripPhoto/PastTripPhoto.jsx';
-import TripBlog from './Pages/TripBlog/TripBlog.jsx';
 import TripVlog from './Pages/TripVlog/TripVlog.jsx';
+import TripBlog from './Pages/TripBlog/TripBlog.jsx';
+import PastTourVideo from './Pages/TripVlog/PastTour/pastTourVideo.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -68,6 +70,10 @@ const router = createBrowserRouter([
       {
         path:"/tripVlog",
         element:<PrivateRoute><TripVlog/></PrivateRoute>
+      },
+      {
+        path:"/pastTourVlog",
+        element:<PrivateRoute><PastTourVideo/></PrivateRoute>
       }
     ]
   },

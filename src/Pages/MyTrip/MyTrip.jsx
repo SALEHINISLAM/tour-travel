@@ -3,7 +3,7 @@ import useFetchUserInfo from '../../CustomHooks/useFetchUserInfo';
 import Heading from '../../Components/Heading';
 import { Check, Clock, MapPin } from 'lucide-react';
 import useAxiosPublic from '../../CustomHooks/useAxiosPublic';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../Providers/AuthProviders';
 import RouteMap from '../../Map/RouteMap';
 
@@ -71,6 +71,7 @@ export default function MyTrip() {
             setUpdatingTask(false);
         }
     };
+
     if (loading || !tourData) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -109,13 +110,24 @@ export default function MyTrip() {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col justify-center items-center">
-                <h1 className='text-3xl font-medium'>My Route</h1>
-                <RouteMap
-                    startCoords={{ lat: parseFloat(aiResponse["Tour Plan"][0]["tasks"][0]["latitude"]), lng: parseFloat(aiResponse["Tour Plan"][0]["tasks"][0]["longitude"]) }}  
-                    endCoords={{ lat: parseFloat(aiResponse["Hotel Name"]["latitude"]), lng: parseFloat(aiResponse["Hotel Name"]["longitude"]) }}    
-                />
+
+            {/* Route Map */}
+            <div className="flex flex-col justify-center items-center mb-8">
+                <h1 className="text-3xl font-medium">My Route</h1>
+                {tourData && (
+                    <RouteMap
+                        startCoords={{
+                            lat: parseFloat(tourData.tourPlan[0].tasks[0].latitude),
+                            lng: parseFloat(tourData.tourPlan[0].tasks[0].longitude)
+                        }}
+                        endCoords={{
+                            lat: parseFloat(tourData.hotel.latitude),
+                            lng: parseFloat(tourData.hotel.longitude)
+                        }}
+                    />
+                )}
             </div>
+
             {/* Daily Plans */}
             <div className="space-y-6">
                 {tourData.tourPlan.map((day, dayIndex) => (
